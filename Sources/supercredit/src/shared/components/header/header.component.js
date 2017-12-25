@@ -20,7 +20,7 @@ class HeaderComponent extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <MyStatusBar backgroundColor={Colors.blue_lighter} barStyle="light-content"/>
+        <MyStatusBar backgroundColor={Colors.blue} barStyle="light-content"/>
         <View style={styles.app_bar}>
           <Icon.Button 
             onPress={this._onClickButtonBar}
@@ -56,6 +56,13 @@ const AppBar_Height = Platform.OS === 'ios' ? 44 : 56;
 const styles = StyleSheet.create({
   container: {
     backgroundColor: Colors.blue,
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowRadius: 2,
+    shadowOpacity: 0.8,
+    elevation: 5,
   },
   status_bar: {
     height: StatusBar_Height,

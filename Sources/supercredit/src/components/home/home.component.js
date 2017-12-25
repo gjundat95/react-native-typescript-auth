@@ -1,11 +1,18 @@
 import React, { Component } from 'react';
 import {
   View, StyleSheet,
-  Text, Button,
+  Text, ScrollView,
 } from 'react-native';
 
 import HeaderComponent from '../../shared/components/header/header.component';
 import Colors from '../../shared/constants/color/colors.constant';
+
+const CellComponent = () => (
+  <View style={styles.cell_content}>
+    <Text>Title</Text>
+  </View>
+);
+
 
 export class HomeComponent extends Component {
 
@@ -17,10 +24,14 @@ export class HomeComponent extends Component {
     return (
       <View style={styles.container}>
         <HeaderComponent navigation={this.props.navigation}/>  
-        <Text> Home Component </Text>
-        <Button 
-          onPress={this._onClick}
-          title="Learn More"/>
+        <ScrollView>
+          <CellComponent/>
+          <CellComponent/>
+          <CellComponent/>
+          <CellComponent/>
+          <CellComponent/>
+          <CellComponent/>
+        </ScrollView>
       </View>
     );
   }
@@ -38,7 +49,18 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    // backgroundColor: Colors.blue_medium,
+  },
+  cell_content: {
+    height: 300,
+    margin: 10,
+    backgroundColor: Colors.blue_lightest,
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowRadius: 2,
+    shadowOpacity: 0.8,
+    elevation: 5,
   },
 });
 
