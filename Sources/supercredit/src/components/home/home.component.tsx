@@ -1,8 +1,8 @@
-import * as React from 'react';
+import * as React from "react";
 import {
   StyleSheet, Text,
   View,
-} from 'react-native';
+} from "react-native";
 
 export interface HomeProps {
 }
@@ -23,7 +23,7 @@ export default class HomeComponent extends React.Component<HomeProps, any> {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
 });

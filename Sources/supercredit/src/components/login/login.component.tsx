@@ -1,12 +1,13 @@
-import * as React from 'react';
+import * as React from "react";
 import {
   StyleSheet,
   View, TouchableOpacity,
   Text, Image,
-} from 'react-native';
-import Colors from '../../shareds/constant/colors.constant';
-import { connect } from 'react-redux';
-import { setShowLogin, setShowHome } from '../../actions/start-screen/start-screen.action';
+  Linking,
+} from "react-native";
+import Colors from "../../shareds/constant/colors.constant";
+import { connect } from "react-redux";
+import { setShowLogin, setShowHome } from "../../actions/start-screen/start-screen.action";
 
 export interface LoginProps {
 }
@@ -17,25 +18,32 @@ class LoginComponent extends React.Component<LoginProps, any> {
     super(props);
   }
 
+  componentDidMount() {
+    Linking.addEventListener("url", (event) => {
+      // var facebookToken = event.url.split('#')[1].split('=')[1].split('&')[0];
+      console.warn(event);
+    });
+  }
+
   public render() {
     return (
       <View style={styles.container}>
         <TouchableOpacity
-          onPress={this._onClickLogin}
+          onPress={this._facebookAuth}
           style={styles.button_fb_login}>
           <Image
-          resizeMode='contain'
+          resizeMode="contain"
             style={styles.icon_fb_login}
-            source={require('../../../../assets/img/icons/fb-transparent-icon.png')}/>
+            source={require("../../../../assets/img/icons/fb-transparent-icon.png")}/>
           <Text style={styles.text_fb_login}>Login with Facebook</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={this._onClickLogin}
+          onPress={this._googleAuth}
           style={styles.button_google_login}>
           <Image
-          resizeMode='contain'
-            style={styles.icon_google_login} 
-            source={require('../../../../assets/img/icons/google-transparent-icon.png')}/>
+          resizeMode="contain"
+            style={styles.icon_google_login}
+            source={require("../../../../assets/img/icons/google-transparent-icon.png")}/>
           <Text style={styles.text_google_login}>Login with Google</Text>
         </TouchableOpacity>
 
@@ -43,14 +51,35 @@ class LoginComponent extends React.Component<LoginProps, any> {
     );
   }
 
-  public _onClickLogin = () => {
+  private _facebookAuth = () => {
+    Linking.openURL([
+      "https://graph.facebook.com/oauth/authorize",
+      "?response_type=token",
+      "&scope=email",
+      "&client_id=" + "978659365579905",
+      "&redirect_uri=fb978659365579905://authorize",
+    ].join(""));
+  }
 
+  private _googleAuth() {
+    Linking.openURL([
+      "https://accounts.google.com/o/oauth2/v2/auth",
+      "?client_id=920496582675-nh5c20bgl93biotq2dlr9jeqp5ulp9d4.apps.googleusercontent.com",
+      "&response_type=code",
+      "&scope=openid%20email",
+      "&redirect_uri=com.supercredit:/oauth2redirect",
+      "&state=security_token%3D138r5719ru3e1%26url%3Dhttps://oauth2-login-demo.example.com/myHome",
+      "&nonce=0394852-3190485-2490358",
+    ].join(""));
+  }
+
+  public _onClickLogin = () => {
     setTimeout(() => {
       this.props.setShowLogin(false);
       this.props.setShowHome(true);
     }, 1000);
 
-  };
+  }
 
 }
 
@@ -62,8 +91,8 @@ export default connect(
   },
   (dispatch) => {
     return {
-      setShowLogin: (isLogin) => dispatch(setShowLogin(isLogin)),
-      setShowHome: (isHome) => dispatch(setShowHome(isHome)),
+      setShowLogin: (isLogin: any) => dispatch(setShowLogin(isLogin)),
+      setShowHome: (isHome: any) => dispatch(setShowHome(isHome)),
     };
   }
 )(LoginComponent);

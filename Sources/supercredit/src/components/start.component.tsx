@@ -1,8 +1,8 @@
-import * as React from 'react';
-import { connect } from 'react-redux';
-import HomeComponent from './home/home.component';
-import LoginComponent from './login/login.component';
-import SplashScreenComponent from './start-screen/splash-screen/splash-screen.component';
+import * as React from "react";
+import { connect } from "react-redux";
+import HomeComponent from "./home/home.component";
+import LoginComponent from "./login/login.component";
+import SplashScreenComponent from "./start-screen/splash-screen/splash-screen.component";
 
 class StartComponent extends React.Component<any, any> {
   constructor(props: any) {
